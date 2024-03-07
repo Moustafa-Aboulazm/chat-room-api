@@ -1,4 +1,4 @@
-// src/chat/models/user.model.ts
+ 
 
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 //mport { Types } from 'mongoose';

@@ -14,35 +14,31 @@ export class SocketGateway {
   server: Server;
 
   constructor(private readonly eventEmitter: EventEmitter2) {
-
- ;
     // Listen for the 'newMessage' event
     this.eventEmitter.on('newMessage', (event: MessageSentEvent) => {
-      // Assuming you want to broadcast the new message to all clients in the room
       this.server.to(event.roomId).emit('newMessage', event.message);
-
     });
 
     this.eventEmitter.on('userJoined', (event: MessageSentEvent) => {
-        // Assuming you want to broadcast the new message to all clients in the room
-        this.server.to(event.roomId).emit('userJoined', event.message);
-  
-      });
-
-    
+      this.server.to(event.roomId).emit('userJoined', event.message);
+    });
   }
 
-  // Other methods...
-
   @SubscribeMessage('joinRoom')
-  handleJoinRoom(client: any, payload: { roomId: string; userId: string }): void {
+  handleJoinRoom(
+    client: any,
+    payload: { roomId: string; userId: string },
+  ): void {
     const { roomId, userId } = payload;
     client.join(roomId);
     this.server.to(roomId).emit('userJoined', { roomId, userId });
   }
 
   @SubscribeMessage('sendMessage')
-  handleSendMessage(payload: { roomId: string; message: { text: string; user: string } }): void {
+  handleSendMessage(payload: {
+    roomId: string;
+    message: { text: string; user: string };
+  }): void {
     const { roomId, message } = payload;
     this.server.to(roomId).emit('newMessage', message);
   }

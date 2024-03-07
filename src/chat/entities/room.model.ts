@@ -1,4 +1,4 @@
-// src/chat/models/room.model.ts
+ 
 
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document , Types } from 'mongoose';

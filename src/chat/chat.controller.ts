@@ -1,5 +1,4 @@
-// src/chat/controllers/chat.controller.ts
-
+ 
 import { Controller, Get, Post, Body, Param, UsePipes, ValidationPipe } from '@nestjs/common';
 import { ChatService } from './chat.service';
 import { Message } from './entities/message.model';
